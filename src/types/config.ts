@@ -15,7 +15,7 @@ export type SiteConfig = {
 		| "vi"
 		| "tr"
 		| "id";
-
+	
 	themeColor: {
 		hue: number;
 		fixed: boolean;
@@ -34,7 +34,7 @@ export type SiteConfig = {
 		enable: boolean;
 		depth: 1 | 2 | 3;
 	};
-
+	
 	favicon: Favicon[];
 };
 
@@ -48,12 +48,14 @@ export enum LinkPreset {
 	Home = 0,
 	Archive = 1,
 	About = 2,
+	Friends = 3,
 }
 
 export type NavBarLink = {
 	name: string;
 	url: string;
 	external?: boolean;
+	icon?: string;
 };
 
 export type NavBarConfig = {

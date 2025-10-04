@@ -43,18 +43,20 @@ export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
 		LinkPreset.Archive,
+		LinkPreset.Friends,
 		LinkPreset.About,
 		{
 			name: "GitHub",
 			url: "https://github.com/virelyx258/virelyx258.github.io", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
+			icon: "fa6-brands:github"
 		},
 	],
 };
 
 export const profileConfig: ProfileConfig = {
 	avatar: "https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=500&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "Luming",
+	name: "Riseforever",
 	bio: "不慌张，不绝望，不狂妄，不投降。",
 	links: [
 		{
