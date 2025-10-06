@@ -1,5 +1,6 @@
 ---
 import path from "node:path";
+import Giscus from "@components/Giscus.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -13,7 +14,6 @@ import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
-import Giscus from "@components/Giscus.astro";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -89,15 +89,7 @@ const jsonLd = {
                     <div class="text-sm">
                         {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
                     </div>
-                </div>		
-				<!-- 新增阅读量统计 -->
-				<script is:inline async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-				<div class="flex flex-row items-center">
-				  <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
-					<Icon name="material-symbols:visibility-outline-rounded"></Icon>
-				  </div>
-				  <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span> 浏览	
-				</div>				
+                </div>				
             </div>
             <!-- title -->
             <div class="relative onload-animation">
