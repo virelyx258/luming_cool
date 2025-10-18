@@ -1,68 +1,35 @@
-name: Build and Check
+name: GitHub Pages Astro CI
 
 on:
+  # 每次推送到 `main` 分支时触发这个“工作流程”
+  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
+  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+  workflow_dispatch:
+  
+# 允许 job 克隆 repo 并创建一个 page deployment
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  # 先安装和检查
-  check:
+  build:
     runs-on: ubuntu-latest
-    name: Astro Check
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout your repository using git
+        uses: actions/checkout@v3
+      - name: Install, build, and upload your site
+        uses: withastro/action@v0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # 只使用一个稳定版本
-          cache: 'npm' # 改用 npm 缓存，更稳定
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Astro Check
-        run: npx astro check
-
-  # 构建和部署
-  build-and-deploy:
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
-    name: Build and Deploy
-    needs: check # 依赖 check job
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Astro Build
-        run: npx astro build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
