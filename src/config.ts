@@ -52,7 +52,7 @@ export const profileConfig: ProfileConfig = {
 	avatar:
 		"https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=500&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Riseforever",
-	bio: "不慌张，不绝望，不狂妄，不投降。",
+	bio: "高一学生，博主，开发者。",
 	links: [
 		{
 			name: "Twitter",
@@ -65,6 +65,11 @@ export const profileConfig: ProfileConfig = {
 			name: "GitHub",
 			icon: "fa6-brands:github",
 			url: "https://github.com/virelyx258",
+		},
+				{
+			name: "RSS",
+			icon: "material-symbols:rss-feed",
+			url: "https://luming.cool/rss.xml",
 		},
 	],
 };

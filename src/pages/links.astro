@@ -5,8 +5,8 @@ import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 import { getEntryBySlug } from "astro:content";
 
-const friendsPost = await getEntryBySlug("spec", "friends");
-const { Content } = await friendsPost.render();
+const linksPost = await getEntryBySlug("spec", "links");
+const { Content } = await linksPost.render();
 ---
 
 <MainGridLayout title="友链" description="友情链接">
