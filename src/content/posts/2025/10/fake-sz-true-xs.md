@@ -3,7 +3,7 @@ title: 伪数智，纯形式
 published: 2025-10-11
 description: '某学校所谓的“数智化”只是噱头，不仅不能提效，反倒成了学生的一个绊脚石。'
 image: ''
-tags: ["议论","测试ß"]
+tags: ["议论","学校"]
 category: '生活'
 draft: false 
 ---
