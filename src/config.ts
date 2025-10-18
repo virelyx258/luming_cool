@@ -45,12 +45,6 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.Friends,
 		LinkPreset.About,
-		{
-			name: "GitHub",
-			url: "https://github.com/virelyx258/virelyx258.github.io", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
-			icon: "fa6-brands:github",
-		},
 	],
 };
 
