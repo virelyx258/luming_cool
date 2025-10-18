@@ -9,9 +9,9 @@
 ```
   {
     title: '站点标题',
-    imgurl: '站点头像',
+    img: '站点头像',
     desc: '站点简介',
-    siteurl: '站点地址',
+    link: '站点地址',
   },
 ```
 
@@ -25,7 +25,6 @@
 站点链接：https://luming.cool
 站点简介：不慌张，不绝望，不狂妄，不投降。
 站点头像：https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=500&r=X
-站长邮箱：hi[at]virelyx.com（请手动将`[at]`替换为`@`）
+站长邮箱：hi[at]riseforever.cn（请手动将`[at]`替换为`@`）
 ```
-
 
