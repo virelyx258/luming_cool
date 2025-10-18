@@ -2,9 +2,9 @@ name: Build and Check
 
 on:
   push:
-    branches: [ main ] # Adjust branches as needed
+    branches: [ main ]
   pull_request:
-    branches: [ main ] # Adjust branches as needed
+    branches: [ main ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -14,12 +14,10 @@ permissions:
   contents: read
 
 jobs:
+  # 先安装和检查
   check:
-    strategy:
-      matrix:
-        node: [18, 20] # 改为 Astro 官方支持的 LTS 版本
     runs-on: ubuntu-latest
-    name: Astro Check for Node.js ${{ matrix.node }}
+    name: Astro Check
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,26 +25,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
-          cache: 'pnpm' # 添加 pnpm 缓存
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+          node-version: '20' # 只使用一个稳定版本
+          cache: 'npm' # 改用 npm 缓存，更稳定
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
 
       - name: Run Astro Check
-        run: pnpm astro check
+        run: npx astro check
 
-  build:
-    strategy:
-      matrix:
-        node: [18, 20] # 改为 Astro 官方支持的 LTS 版本
+  # 构建和部署
+  build-and-deploy:
     runs-on: ubuntu-latest
-    name: Astro Build for Node.js ${{ matrix.node }}
+    name: Build and Deploy
+    needs: check # 依赖 check job
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,27 +46,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
-          cache: 'pnpm' # 添加 pnpm 缓存
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
 
       - name: Run Astro Build
-        run: pnpm astro build
+        run: npx astro build
 
-      # 可选：添加部署步骤（如果你需要部署到 GitHub Pages）
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        if: matrix.node == 20 # 只在 Node.js 20 上部署，避免重复部署
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        if: matrix.node == 20
         with:
           path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
