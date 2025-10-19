@@ -45,3 +45,17 @@ Riseforever ，高一学生，就读于本地的某所高中。
 ## 关于「我喜欢的音乐」
 
 我喜欢的歌手：邓紫棋、华晨宇、AJR。
+
+## 关于「特别鸣谢」
+
+- Astro 博客系统
+
+::github{repo="withastro/astro"}
+
+- Fuwari 主题
+
+::github{repo="saicaca/fuwari"}
+
+- 侧边栏统计代码、友链随机排列代码摘自 pinpe.top
+
+::github{repo="pinpe/pinpe-top"}
