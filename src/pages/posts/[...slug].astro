@@ -1,6 +1,5 @@
 ---
 import path from "node:path";
-import Giscus from "@components/Giscus.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -14,6 +13,7 @@ import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
+import Comment from "@components/comment/index.astro";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -126,17 +126,10 @@ const jsonLd = {
 
             <Markdown class="mb-6 markdown-content onload-animation">
 			<Content />
-			<!-- 评论区域 -->
-					<section class="comments-section mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-					<h2 class="text-2xl font-bold mb-6 pb-4 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">
-						评论
-						</h2>
-						<Giscus />
-					</section>
             </Markdown>
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
-
+            <Comment post={entry}></Comment>
         </div>
     </div>
 
