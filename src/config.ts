@@ -89,6 +89,6 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 export const commentConfig: CommentConfig = {
   twikoo: {
-    envId: 'https://comments.luming.cool/.netlify/functions/twikoo',
+    envId: 'https://comments.luming.cool/.netlify/functions/twikoo/',
   },
 }
