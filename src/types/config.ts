@@ -81,7 +81,7 @@ export type CommentConfig = {
     envId: string
     region?: string
     lang?: string
-  }
+};
 
 export type LicenseConfig = {
 	enable: boolean;
