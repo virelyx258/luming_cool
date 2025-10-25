@@ -1,4 +1,5 @@
 import type {
+	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -51,7 +52,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar:
 		"https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=500&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "Riseforever",
+	name: "RiseForever",
 	bio: "高一学生，博主，开发者。",
 	links: [
 		{
@@ -84,4 +85,21 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+export const commentConfig: CommentConfig = {
+  giscus: {
+    repo: "virelyx258/virelyx258.github.io",
+    repoId: "R_kgDOP6afIA",
+    category: "Announcements",
+    categoryId: "DIC_kwDOP6afIM4CwIHM",
+    mapping: "title",
+    strict: "0",
+    reactionsEnabled: "1",
+    emitMetadata: "1",
+    inputPosition: "top",
+    theme: "reactive",
+    lang: "zh-CN",
+    loading: "lazy",
+  },
 };
