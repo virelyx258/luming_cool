@@ -23,5 +23,11 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
      name: i18n(I18nKey.friends),
      url: '/friends/',
 	 icon: "material-symbols:group-outline"
-  },
+  	},
+	[LinkPreset.Travellings]: {
+     name: i18n(I18nKey.travellings),
+     url: 'https://travellings.cn/plain.html',
+	 icon: "material-symbols:train-outline",
+	 external: true,
+ 	},
 };
