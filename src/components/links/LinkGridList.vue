@@ -155,7 +155,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		link: "https://blognas.hwb0307.com/",
 	},
 	{
-		title: "Pinpe",
+		title: "Pinpe 的云端",
 		img: "https://pinpe.top/head.jpg",
 		desc: "一个属于自己的云朵。",
 		link: "https://pinpe.top/",
