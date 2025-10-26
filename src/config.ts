@@ -90,7 +90,7 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 export const commentConfig: CommentConfig = {
   giscus: {
-    repo: "virelyx258/virelyx258.github.io",
+    repo: "virelyx258/luming_cool",
     repoId: "R_kgDOP6afIA",
     category: "Announcements",
     categoryId: "DIC_kwDOP6afIM4CwIHM",
