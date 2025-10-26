@@ -154,6 +154,12 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		desc: "百代繁华一朝都，谁非过客；千秋明月吹角寒，花是主人。",
 		link: "https://blognas.hwb0307.com/",
 	},
+	{
+		title: "Pinpe",
+		img: "https://pinpe.top/head.jpg",
+		desc: "一个属于自己的云朵。",
+		link: "https://pinpe.top/",
+	},
 ];
 
 const randomLinks = computed(() => links.sort(() => Math.random() - 0.5));
