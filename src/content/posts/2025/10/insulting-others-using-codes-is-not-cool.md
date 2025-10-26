@@ -1,6 +1,6 @@
 ---
 title: 代号侮辱，真的不 Cool
-published: 2025-10-25 16:39:50
+published: 2025-10-26 16:39:50
 description: '本文围绕班里同学使用“嘉豪”一词对博主侮辱一事进行讨论。'
 image: ''
 tags: ['议论']
