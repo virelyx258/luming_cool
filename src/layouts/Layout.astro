@@ -360,7 +360,60 @@ function showBanner() {
 		return;
 	}
 
-	banner.classList.remove('opacity-0', 'scale-105');
+	// 查找Banner中的图片元素（支持Astro Image组件和普通img标签）
+	const img = banner.querySelector('img');
+	if (img) {
+		// 如果图片已经加载完成，直接显示
+		if (img.complete && img.naturalHeight !== 0) {
+			banner.classList.remove('opacity-0', 'scale-105');
+			// 允许页面元素动画
+			document.body.classList.add('banner-ready');
+		} else {
+			// 等待图片加载完成
+			const loadHandler = () => {
+				banner.classList.remove('opacity-0', 'scale-105');
+				// 允许页面元素动画
+				document.body.classList.add('banner-ready');
+			};
+			img.addEventListener('load', loadHandler, { once: true });
+			img.addEventListener('error', loadHandler, { once: true }); // 加载失败也显示
+			// 如果图片加载超时，也要显示（避免一直等待）
+			setTimeout(() => {
+				if (!document.body.classList.contains('banner-ready')) {
+					banner.classList.remove('opacity-0', 'scale-105');
+					document.body.classList.add('banner-ready');
+				}
+			}, 3000);
+		}
+	} else {
+		// 如果没有找到img标签，可能还在加载，稍后重试一次
+		setTimeout(() => {
+			const imgRetry = banner.querySelector('img');
+			if (imgRetry) {
+				if (imgRetry.complete && imgRetry.naturalHeight !== 0) {
+					banner.classList.remove('opacity-0', 'scale-105');
+					document.body.classList.add('banner-ready');
+				} else {
+					const loadHandler = () => {
+						banner.classList.remove('opacity-0', 'scale-105');
+						document.body.classList.add('banner-ready');
+					};
+					imgRetry.addEventListener('load', loadHandler, { once: true });
+					imgRetry.addEventListener('error', loadHandler, { once: true });
+					setTimeout(() => {
+						if (!document.body.classList.contains('banner-ready')) {
+							banner.classList.remove('opacity-0', 'scale-105');
+							document.body.classList.add('banner-ready');
+						}
+					}, 3000);
+				}
+			} else {
+				// 如果没有图片，直接显示（可能是其他类型的背景）
+				banner.classList.remove('opacity-0', 'scale-105');
+				document.body.classList.add('banner-ready');
+			}
+		}, 100);
+	}
 }
 
 function init() {
@@ -369,6 +422,11 @@ function init() {
 	loadHue();
 	initCustomScrollbar();
 	showBanner();
+	
+	// 如果Banner未启用，立即允许页面元素动画
+	if (!siteConfig.banner.enable) {
+		document.body.classList.add('banner-ready');
+	}
 }
 
 /* Load settings when entering the site */

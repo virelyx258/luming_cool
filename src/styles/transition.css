@@ -24,6 +24,17 @@ html.is-animating .transition-swup-fade {
     animation: 300ms fade-in-up;
     animation-fill-mode: forwards;
 }
+
+/* 当Banner还未准备好时，阻止动画 */
+body:not(.banner-ready) .onload-animation {
+    animation: none !important;
+    opacity: 0;
+}
+
+body.banner-ready .onload-animation {
+    animation: 300ms fade-in-up;
+    animation-fill-mode: forwards;
+}
 #navbar {
     animation-delay: 0ms
 }
