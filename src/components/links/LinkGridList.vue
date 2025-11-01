@@ -82,7 +82,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
 		title: "小改学习志",
 		img:
-			"https://www.haoyu233.com/wp-content/uploads/2025/07/33d1bf889e23bb0755cd2de995d8718c.jpg",
+			"https://www.haoyu233.com/wp-content/uploads/2025/11/b7a92341f346e9c6c3bbfabca684ce19.webp",
 		desc: "Make It Possible.",
 		link: "https://www.haoyu233.com/",
 	},
