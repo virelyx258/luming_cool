@@ -1,0 +1,176 @@
+---
+---
+
+<div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--page-bg)]">
+	<div class="loading-spinner"></div>
+</div>
+
+<style>
+	#page-loading {
+		--spinner-size: 40px;
+		--spinner-border-width: 3px;
+		/* 浅色模式直接使用主题色 */
+		--spinner-color: var(--primary);
+		--spinner-bg-color: oklch(0.92 0.01 0);
+	}
+
+	.loading-spinner {
+		width: var(--spinner-size);
+		height: var(--spinner-size);
+		border: var(--spinner-border-width) solid var(--spinner-bg-color);
+		border-top-color: var(--spinner-color);
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	/* 暗色模式适配 */
+	:root.dark #page-loading {
+		--spinner-bg-color: oklch(0.20 0.014 0);
+		/* 深色模式下使用更亮的旋转色以确保可见性 */
+		--spinner-color: oklch(0.85 0.14 var(--hue));
+	}
+</style>
+
+<script>
+	// 检查是否为初次访问
+	function isFirstVisit() {
+		return !sessionStorage.getItem('hasVisited');
+	}
+
+	// 标记已访问
+	function markAsVisited() {
+		sessionStorage.setItem('hasVisited', 'true');
+	}
+
+	function hideLoading() {
+		const loadingElement = document.getElementById('page-loading');
+		if (loadingElement && loadingElement.parentNode) {
+			// 直接移除元素，无渐隐动画
+			loadingElement.parentNode.removeChild(loadingElement);
+		}
+	}
+
+	function initLoading() {
+		// 如果不是初次访问，直接隐藏并返回
+		if (!isFirstVisit()) {
+			hideLoading();
+			return;
+		}
+
+		// 初次访问，等待页面加载完成
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => {
+				checkPageReady();
+			});
+		} else {
+			checkPageReady();
+		}
+	}
+
+	function checkPageReady() {
+		let pageReady = false;
+		
+		// 检查页面是否已经标记为ready（通过banner-ready类）
+		function checkBannerReady() {
+			if (document.body && document.body.classList.contains('banner-ready')) {
+				return true;
+			}
+			return false;
+		}
+
+		// 如果banner已经ready，直接隐藏
+		if (checkBannerReady()) {
+			pageReady = true;
+			handlePageReady();
+			return;
+		}
+
+		// 监听banner-ready类的添加
+		let observer: MutationObserver | null = null;
+		if (document.body) {
+			observer = new MutationObserver(() => {
+				if (checkBannerReady() && !pageReady) {
+					pageReady = true;
+					if (observer) {
+						observer.disconnect();
+					}
+					handlePageReady();
+				}
+			});
+			observer.observe(document.body, {
+				attributes: true,
+				attributeFilter: ['class']
+			});
+			
+			// 清理observer的函数
+			const cleanup = () => {
+				if (observer) {
+					observer.disconnect();
+					observer = null;
+				}
+			};
+			
+			// 确保在页面卸载时清理
+			window.addEventListener('beforeunload', cleanup);
+		}
+
+		// 等待window.onload确保所有资源加载完成
+		if (document.readyState === 'complete') {
+			// 如果DOM已经完成，但banner还没ready，等待最多2秒
+			setTimeout(() => {
+				if (!pageReady) {
+					pageReady = true;
+					if (observer) {
+						observer.disconnect();
+					}
+					handlePageReady();
+				}
+			}, 2000);
+		} else {
+			window.addEventListener('load', () => {
+				// window.onload后，等待最多1秒让banner加载
+				setTimeout(() => {
+					if (!pageReady) {
+						pageReady = true;
+						if (observer) {
+							observer.disconnect();
+						}
+						handlePageReady();
+					}
+				}, 1000);
+			}, { once: true });
+		}
+
+		// 如果3秒后还没加载完成，也隐藏loading（避免一直显示）
+		setTimeout(() => {
+			if (!pageReady) {
+				pageReady = true;
+				if (observer) {
+					observer.disconnect();
+				}
+				handlePageReady();
+			}
+		}, 3000);
+	}
+
+	function handlePageReady() {
+		// 等待一小段时间确保页面渲染完成
+		setTimeout(() => {
+			hideLoading();
+			// 标记已访问
+			markAsVisited();
+		}, 100);
+	}
+
+	// 初始化
+	initLoading();
+</script>

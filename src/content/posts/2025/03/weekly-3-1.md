@@ -4,7 +4,7 @@ published: 2025-03-02 14:30:00
 description: 'There is no introduction.'
 image: './weekly-3-1.assets/a800798f18c5c0c5d2a9b4288030dcc5-1024x574.webp'
 tags: []
-category: ''
+category: '生活'
 draft: false 
 lang: ''
 ---
