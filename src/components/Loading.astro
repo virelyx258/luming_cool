@@ -1,7 +1,7 @@
 ---
 ---
 
-<div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--page-bg)]">
+<div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--page-bg)]" style="display: none;">
 	<div class="loading-spinner"></div>
 </div>
 
@@ -41,44 +41,54 @@
 </style>
 
 <script>
-	// 检查是否为初次访问
-	function isFirstVisit() {
-		return !sessionStorage.getItem('hasVisited');
+	// 加载时间阈值（毫秒），超过这个时间才显示Loading
+	// 设置为800ms，避免在快速刷新时显示加载动画
+	const LOADING_THRESHOLD = 800;
+	
+	// 记录页面开始加载的时间（使用navigationStart或timeOrigin）
+	function getLoadStartTime() {
+		if (performance.timing && performance.timing.navigationStart) {
+			return performance.timing.navigationStart;
+		}
+		if (performance.timeOrigin) {
+			return performance.timeOrigin;
+		}
+		// 降级方案：使用当前时间减去已过去的时间
+		return Date.now() - performance.now();
+	}
+	
+	const loadStartTime = getLoadStartTime();
+	let loadingShown = false;
+	let pageReady = false;
+	
+	// 获取已加载时间（毫秒）
+	function getElapsedTime() {
+		return Date.now() - loadStartTime;
 	}
 
-	// 标记已访问
-	function markAsVisited() {
-		sessionStorage.setItem('hasVisited', 'true');
+	function showLoading() {
+		const loadingElement = document.getElementById('page-loading');
+		if (loadingElement && !loadingShown) {
+			loadingElement.style.display = 'flex';
+			loadingShown = true;
+		}
 	}
 
 	function hideLoading() {
 		const loadingElement = document.getElementById('page-loading');
 		if (loadingElement && loadingElement.parentNode) {
-			// 直接移除元素，无渐隐动画
 			loadingElement.parentNode.removeChild(loadingElement);
 		}
 	}
 
-	function initLoading() {
-		// 如果不是初次访问，直接隐藏并返回
-		if (!isFirstVisit()) {
-			hideLoading();
-			return;
-		}
-
-		// 初次访问，等待页面加载完成
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', () => {
-				checkPageReady();
-			});
-		} else {
-			checkPageReady();
+	function checkAndShowLoading() {
+		const elapsed = getElapsedTime();
+		if (elapsed >= LOADING_THRESHOLD && !pageReady) {
+			showLoading();
 		}
 	}
 
 	function checkPageReady() {
-		let pageReady = false;
-		
 		// 检查页面是否已经标记为ready（通过banner-ready类）
 		function checkBannerReady() {
 			if (document.body && document.body.classList.contains('banner-ready')) {
@@ -87,9 +97,8 @@
 			return false;
 		}
 
-		// 如果banner已经ready，直接隐藏
+		// 如果banner已经ready，标记为完成
 		if (checkBannerReady()) {
-			pageReady = true;
 			handlePageReady();
 			return;
 		}
@@ -123,6 +132,15 @@
 			window.addEventListener('beforeunload', cleanup);
 		}
 
+		// 定期检查加载时间，如果超过阈值就显示Loading
+		const checkInterval = setInterval(() => {
+			if (!pageReady) {
+				checkAndShowLoading();
+			} else {
+				clearInterval(checkInterval);
+			}
+		}, 50); // 每50ms检查一次
+
 		// 等待window.onload确保所有资源加载完成
 		if (document.readyState === 'complete') {
 			// 如果DOM已经完成，但banner还没ready，等待最多2秒
@@ -131,6 +149,9 @@
 					pageReady = true;
 					if (observer) {
 						observer.disconnect();
+					}
+					if (checkInterval) {
+						clearInterval(checkInterval);
 					}
 					handlePageReady();
 				}
@@ -143,6 +164,9 @@
 						pageReady = true;
 						if (observer) {
 							observer.disconnect();
+						}
+						if (checkInterval) {
+							clearInterval(checkInterval);
 						}
 						handlePageReady();
 					}
@@ -157,18 +181,42 @@
 				if (observer) {
 					observer.disconnect();
 				}
+				if (checkInterval) {
+					clearInterval(checkInterval);
+				}
 				handlePageReady();
 			}
 		}, 3000);
 	}
 
 	function handlePageReady() {
-		// 等待一小段时间确保页面渲染完成
-		setTimeout(() => {
+		pageReady = true;
+		
+		// 如果已经显示了Loading，等待一小段时间确保页面渲染完成
+		if (loadingShown) {
+			setTimeout(() => {
+				hideLoading();
+			}, 100);
+		} else {
+			// 页面快速加载完成，直接隐藏，不显示Loading
 			hideLoading();
-			// 标记已访问
-			markAsVisited();
-		}, 100);
+		}
+	}
+
+	function initLoading() {
+		// 等待DOM加载
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => {
+				checkPageReady();
+			});
+		} else {
+			checkPageReady();
+		}
+
+		// 立即开始检查加载时间
+		setTimeout(() => {
+			checkAndShowLoading();
+		}, LOADING_THRESHOLD);
 	}
 
 	// 初始化
