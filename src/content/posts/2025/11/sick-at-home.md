@@ -5,7 +5,7 @@ description: '身体上由病痛到正常。但孤独感贯穿始终。'
 image: ''
 tags: ['疾病','生活']
 category: '生活'
-draft: false 
+draft: true
 lang: ''
 ---
 
