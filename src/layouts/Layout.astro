@@ -102,13 +102,37 @@ const bannerOffset =
 
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		{favicons.map(favicon => (
-			<link rel="icon"
-				  href={favicon.src.startsWith('/') ? url(favicon.src) : favicon.src}
-				  sizes={favicon.sizes}
-				  media={favicon.theme && `(prefers-color-scheme: ${favicon.theme})`}
-			/>
-		))}
+		
+		{/* Standard favicon.ico - most compatible format for browsers and search engines */}
+		{/* Browsers will automatically fallback if this file doesn't exist */}
+		<link rel="icon" type="image/x-icon" href={url("/favicon.ico")} />
+		
+		{/* Favicon links with proper type attributes */}
+		{favicons.map(favicon => {
+			const faviconUrl = favicon.src.startsWith('/') ? url(favicon.src) : favicon.src;
+			const faviconType = favicon.src.endsWith('.webp') ? 'image/webp' 
+				: favicon.src.endsWith('.png') ? 'image/png' 
+				: favicon.src.endsWith('.svg') ? 'image/svg+xml'
+				: favicon.src.endsWith('.ico') ? 'image/x-icon'
+				: 'image/x-icon';
+			
+			return (
+				<link 
+					rel="icon"
+					type={faviconType}
+					href={faviconUrl}
+					sizes={favicon.sizes}
+					media={favicon.theme ? `(prefers-color-scheme: ${favicon.theme})` : undefined}
+				/>
+			);
+		})}
+		
+		{/* Additional PNG fallback for better compatibility */}
+		<link rel="icon" type="image/png" sizes="32x32" href={url("/favicon/icon-32x32.png")} />
+		<link rel="icon" type="image/png" sizes="16x16" href={url("/favicon/icon-16x16.png")} />
+		
+		{/* Apple Touch Icon for iOS devices */}
+		<link rel="apple-touch-icon" sizes="180x180" href={url("/favicon/apple-touch-icon.png")} />
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>

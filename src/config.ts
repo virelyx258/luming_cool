@@ -32,11 +32,25 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon
+		// Recommended: Add multiple sizes and formats for better compatibility
 		{
 			src: "/favicon/icon.webp", // Path of the favicon, relative to the /public directory
 			theme: "light", // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 			sizes: "32x32", // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},
+		// Uncomment and add more favicon sizes/formats if you have them:
+		// {
+		// 	src: "/favicon/icon-16x16.png",
+		// 	sizes: "16x16",
+		// },
+		// {
+		// 	src: "/favicon/icon-32x32.png",
+		// 	sizes: "32x32",
+		// },
+		// {
+		// 	src: "/favicon/icon-192x192.png",
+		// 	sizes: "192x192",
+		// },
 	],
 };
 
