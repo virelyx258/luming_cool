@@ -86,15 +86,13 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 	},
 	{
 		title: "老陈爱刷机",
-		img:
-			"http://blog.chenyuxia.com/wp-content/uploads/2025/01/cropped-dc57b0460b95b3e21479f93643b556e9.jpg",
+		img: "http://blog.chenyuxia.com/wp-content/uploads/2025/01/cropped-dc57b0460b95b3e21479f93643b556e9.jpg",
 		desc: "由老陈爱刷机搭建的网站，更新些好玩的东西。",
 		link: "https://blog.chenyuxia.com/",
 	},
 	{
 		title: "小改学习志",
-		img:
-			"https://www.haoyu233.com/wp-content/uploads/2025/11/b7a92341f346e9c6c3bbfabca684ce19.webp",
+		img: "https://www.haoyu233.com/wp-content/uploads/2025/11/b7a92341f346e9c6c3bbfabca684ce19.webp",
 		desc: "Make It Possible.",
 		link: "https://www.haoyu233.com/",
 	},
@@ -106,8 +104,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 	},
 	{
 		title: "makotowu",
-		img:
-			"https://www.haoyu233.com/wp-content/uploads/2025/02/b03cbea61a7d4e5ebd96651eb18869a5.webp",
+		img: "https://www.haoyu233.com/wp-content/uploads/2025/02/b03cbea61a7d4e5ebd96651eb18869a5.webp",
 		desc: "makotowu运营笔记",
 		link: "https://makotowu.cnstlapy.cn/",
 	},
@@ -149,8 +146,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 	},
 	{
 		title: "Levi",
-		img:
-			"https://levi-oss-1301066479.cos.ap-guangzhou.myqcloud.com/avatarImages/Snipaste_2024-04-24_16-54-57.png",
+		img: "https://levi-oss-1301066479.cos.ap-guangzhou.myqcloud.com/avatarImages/Snipaste_2024-04-24_16-54-57.png",
 		desc: "一个有意思的Blog，工作记录，日常分享，欢迎访问",
 		link: "https://leviqin.top/",
 	},
