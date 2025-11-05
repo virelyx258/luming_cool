@@ -1,19 +1,90 @@
 ---
-import { commentConfig } from '@/config'
+import { commentConfig } from "@/config";
 
 interface Props {
-  path: string
+	path: string;
 }
 
 const config = {
-  ...commentConfig.twikoo,
-  el: '#tcomment',
-  path: Astro.props.path,
-}
+	...commentConfig.twikoo,
+	el: "#tcomment",
+	path: Astro.props.path,
+};
 ---
 
 <div id="tcomment"></div>
-<script is:inline src="https://cdn.staticfile.org/twikoo/1.6.32/twikoo.all.min.js"></script>
-<script is:inline define:vars={{ config }}>
-  twikoo.init(config)
+<script define:vars={{ config }}>
+function loadTwikoo() {
+  const container = document.getElementById('tcomment');
+  if (!container) return;
+  if (container.getAttribute('data-initialized') === 'true') return;
+
+  const init = () => {
+    if (window.twikoo) {
+      window.twikoo.init(config);
+      container.setAttribute('data-initialized', 'true');
+
+      // 交互增强：
+      // - 点赞：保持滚动位置不变
+      // - 回复：展开后将该评论滚动到视窗中央
+      container.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        // 适配多种可能命名（根据本地样式与 Twikoo 结构推断）
+        const actionRoot = target.closest('.tk-action, .tk-action-icon, .tk-action-count, .tk-expand');
+        if (!actionRoot) return;
+        const likeBtn = target.closest('.tk-like, [data-type="like"], [aria-label*="like" i], [title*="like" i], [title*="赞"], [aria-label*="赞"]');
+        const replyBtn = target.closest('.tk-reply, [data-type="reply"], [aria-label*="reply" i], [title*="reply" i], [title*="回覆"], [title*="回复"], [aria-label*="回覆"], [aria-label*="回复"]');
+
+        // 记录当前滚动位置
+        const prevX = window.scrollX;
+        const prevY = window.scrollY;
+
+        // 在下一帧把滚动位置复原，避免锚点或布局抖动造成的跳动
+        if (likeBtn || actionRoot) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              window.scrollTo(prevX, prevY);
+            });
+          });
+        }
+
+        // 回复：等待 DOM 展开后，将所属评论滚到视窗中央
+        if (replyBtn) {
+          const commentEl = replyBtn.closest('.tk-comment');
+          if (!commentEl) return;
+          // 等待 Twikoo 展开输入框/子线程
+          setTimeout(() => {
+            commentEl.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }, 60);
+        }
+      }, { capture: true });
+    }
+  };
+
+  if (window.twikoo) {
+    init();
+    return;
+  }
+
+  const existed = document.querySelector('script[data-twikoo="true"]');
+  if (existed) {
+    // 脚本已存在但尚未触发 onload，等待其加载后再初始化
+    existed.addEventListener('load', init, { once: true });
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'https://cdn.luming.cool/twikoo.min.js';
+  script.defer = true;
+  script.setAttribute('data-twikoo', 'true');
+  script.addEventListener('load', init, { once: true });
+  document.body.appendChild(script);
+}
+
+// 直接初始化，避免缺少事件触发导致不加载
+loadTwikoo();
+// 仍保留事件以兼容可能的延迟加载触发方式
+document.addEventListener("loadComment", loadTwikoo, { once: true });
 </script>

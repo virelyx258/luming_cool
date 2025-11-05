@@ -75,7 +75,17 @@ export type ProfileConfig = {
 	}[];
 };
 
-export type LicenseConfig = {
+export type CommentConfig = {
+    twikoo?: TwikooConfig
+  }
+
+  type TwikooConfig = {
+    envId: string
+    region?: string
+    lang?: string
+  }
+
+  export type LicenseConfig = {
 	enable: boolean;
 	name: string;
 	url: string;

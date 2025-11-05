@@ -102,19 +102,10 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	theme: "github-dark",
 };
 
+
+
 export const commentConfig: CommentConfig = {
-  giscus: {
-    repo: "virelyx258/luming_cool",
-    repoId: "R_kgDOP6afIA",
-    category: "Announcements",
-    categoryId: "DIC_kwDOP6afIM4CwIHM",
-    mapping: "title",
-    strict: "0",
-    reactionsEnabled: "1",
-    emitMetadata: "1",
-    inputPosition: "top",
-    theme: "reactive",
-    lang: "zh-CN",
-    loading: "lazy",
+  twikoo: {
+    envId: 'https://twikoo-new.luming.cool/',
   },
-};
+}
