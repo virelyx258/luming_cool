@@ -56,19 +56,6 @@ const jsonLd = {
     border-top: 1px solid var(--border-color);
 }
 
-/* Giscus 容器样式 */
-.giscus {
-    margin-top: 1.5rem;
-    min-height: 300px;
-    border-radius: var(--radius-large);
-    overflow: hidden;
-}
-
-/* 暗色模式适配 */
-:global(html.dark) .giscus-frame {
-    color-scheme: dark;
-}
-
 </style>
     <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
