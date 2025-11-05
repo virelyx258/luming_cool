@@ -1,5 +1,6 @@
 ---
 import { commentConfig } from "@/config";
+import twikooUrl from "../twikoo.min.js?url";
 
 interface Props {
 	path: string;
@@ -13,7 +14,7 @@ const config = {
 ---
 
 <div id="tcomment"></div>
-<script define:vars={{ config }}>
+<script define:vars={{ config, twikooUrl }}>
 function loadTwikoo() {
   const container = document.getElementById('tcomment');
   if (!container) return;
@@ -76,7 +77,7 @@ function loadTwikoo() {
   }
 
   const script = document.createElement('script');
-  script.src = 'https://cdn.luming.cool/twikoo.min.js';
+  script.src = twikooUrl;
   script.defer = true;
   script.setAttribute('data-twikoo', 'true');
   script.addEventListener('load', init, { once: true });
