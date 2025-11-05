@@ -17,9 +17,14 @@ import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
+		title: 'MC_Kero blog',
+		img: 'https://img.cdn1.vip/i/68f3418995084_1760772489.png',
+		desc: '依稀当年泪目干',
+		link: 'https://blog.mckero.com/',
+	},
+	{
 		title: "杜老师说",
-		img:
-			"https://cdn.dusays.com/favicon.ico",
+		img: "https://cdn.dusays.com/favicon.ico",
 		desc: "云计算运维讲师杜老师私人技术博客，主要分享一些运维技术、经验。",
 		link: "https://dusays.com/",
 	},
