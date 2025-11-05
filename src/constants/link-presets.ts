@@ -6,28 +6,28 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 	[LinkPreset.Home]: {
 		name: i18n(I18nKey.home),
 		url: "/",
-		icon: "material-symbols:home-outline"
+		icon: "material-symbols:home-outline-rounded"
 	},
 	[LinkPreset.About]: {
 		name: i18n(I18nKey.about),
 		url: "/about/",
-		icon: "material-symbols:info-outline"
+		icon: "material-symbols:info-outline-rounded"
 		
 	},
 	[LinkPreset.Archive]: {
 		name: i18n(I18nKey.archive),
 		url: "/archive/",
-		icon: "material-symbols:archive-outline"
+		icon: "material-symbols:archive-outline-rounded"
 	},
 	[LinkPreset.Friends]: {
      name: i18n(I18nKey.friends),
      url: '/friends/',
-	 icon: "material-symbols:group-outline"
+	 icon: "material-symbols:group-outline-rounded"
   	},
 	[LinkPreset.Travellings]: {
      name: i18n(I18nKey.travellings),
      url: 'https://travellings.cn/plain.html',
-	 icon: "material-symbols:train-outline",
+	 icon: "material-symbols:train-outline-rounded",
 	 external: true,
  	},
 };
