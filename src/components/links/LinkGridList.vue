@@ -16,7 +16,14 @@ import { computed } from "vue";
 import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
-{
+	{
+		title: "杜老师说",
+		img:
+			"https://cdn.dusays.com/favicon.ico",
+		desc: "云计算运维讲师杜老师私人技术博客，主要分享一些运维技术、经验。",
+		link: "https://dusays.com/",
+	},
+	{
 		title: "极客死亡计划",
 		img:
 			"https://www.haoyu233.com/wp-content/uploads/2025/06/f462b8524cee1ea5111dcb74092b9ab2.gif",
