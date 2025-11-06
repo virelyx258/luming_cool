@@ -146,7 +146,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 	},
 	{
 		title: "Levi",
-		img: "https://levi-oss-1301066479.cos.ap-guangzhou.myqcloud.com/avatarImages/Snipaste_2024-04-24_16-54-57.png",
+		img: "https://i.postimg.cc/cJmdWqkn/Snipaste-2024-04-24-16-54-57.png",
 		desc: "一个有意思的Blog，工作记录，日常分享，欢迎访问",
 		link: "https://leviqin.top/",
 	},
