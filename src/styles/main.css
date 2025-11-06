@@ -19,6 +19,7 @@
     }
     .link-lg {
         @apply transition rounded-md p-1.5 -m-1.5 expand-animation;
+        font-family: "MiSans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     }
     .float-panel {
         @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none

@@ -9,6 +9,19 @@ import { Icon } from "astro-icon/components";
         <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem] rounded-2xl relative flex flex-col items-center justify-center">
             <!-- 圆角矩形进度条 SVG -->
             <svg class="progress-ring" width="60" height="60" viewBox="0 0 60 60">
+                <!-- 背景矩形（遮罩层，显示未涉及的部分） -->
+                <rect
+                    class="progress-ring-bg"
+                    x="1.5"
+                    y="1.5"
+                    width="57"
+                    height="57"
+                    rx="16"
+                    fill="none"
+                    stroke-width="3.1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
                 <!-- 进度矩形 -->
                 <rect
                     id="progress-ring-path"
@@ -79,6 +92,9 @@ import { Icon } from "astro-icon/components";
         pointer-events: none
         z-index: 0
         
+    .progress-ring-bg
+        stroke: var(--page-bg)
+        
     .progress-ring-path
         transition: stroke-dashoffset 0.3s ease-out, opacity 0.3s ease-out
         
@@ -99,10 +115,15 @@ import { Icon } from "astro-icon/components";
         top: 50%
         left: 50%
         transform: translate(-50%, calc(-50% + 0.5rem))
+        opacity: 0
         
     .progress-label.show
         opacity: 1
         transform: translate(-50%, calc(-50% + 0.5rem))
+        
+    .progress-label.hide-up
+        opacity: 0
+        transform: translate(-50%, calc(-50% - 0.5rem))
         
     i
         font-size: 1.75rem
@@ -126,7 +147,7 @@ function backToTop() {
     let scrollTimeout = null;
     let lastScrollTime = 0;
     const HIDE_DELAY = 3000; // 3秒
-    const PAGE_SCROLL_THRESHOLD = 0.3; // 整个页面滚动30%的阈值
+    const SCROLL_THRESHOLD_PX = 500; // 固定px阈值，超过此值显示按钮
     
     const progressPath = document.getElementById('progress-ring-path');
     const progressText = document.getElementById('back-to-top-progress-text');
@@ -146,7 +167,7 @@ function backToTop() {
     const perimeter = 200.53;
     let currentProgress = 0;
     let isProgressVisible = false;
-    let lastScrollTop = 0; // 记录上一次滚动位置，用于检测向上滚动
+    let lastScrollTop = 0; // 记录上一次滚动位置
     
     function updateProgress() {
         // 获取当前滚动位置和页面信息（用于整个页面滚动百分比计算）
@@ -204,45 +225,48 @@ function backToTop() {
         // 更新文本
         progressText.textContent = progress + '%';
         
-        // 计算整个页面的滚动百分比
-        const pageScrollPercent = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+        // 检测是否在滚动（滚动位置发生变化）
+        const isScrolling = scrollTop !== lastScrollTop;
         
-        // 检测是否向上滚动（当前滚动位置小于上一次滚动位置）
-        const isScrollingUp = scrollTop < lastScrollTop;
-        
-        // 判断是否应该显示按钮
-        // 条件：1. 整个页面滚动 >= 30%  2. 正在向上滚动
-        const shouldShow = pageScrollPercent >= PAGE_SCROLL_THRESHOLD && isScrollingUp;
+        // 判断是否应该显示按钮（基于固定px值）
+        const shouldShowButton = scrollTop >= SCROLL_THRESHOLD_PX;
         
         // 更新上一次滚动位置
         lastScrollTop = scrollTop;
         
-        if (shouldShow) {
-            // 显示按钮
+        if (shouldShowButton) {
+            // 显示按钮（常驻）
             backToTopBtn.classList.remove('hide');
             
-            // 显示进度条和标签
-            if (!isProgressVisible && progress > 0) {
-                isProgressVisible = true;
-                progressPath.style.opacity = '1';
-                progressLabel.classList.add('show');
-                iconWrapper.classList.add('show-progress');
+            // 如果正在滚动，显示进度标签（从下往上浮入）
+            if (isScrolling) {
+                // 清除之前的隐藏定时器
+                clearTimeout(scrollTimeout);
+                
+                // 显示进度条和标签
+                if (!isProgressVisible) {
+                    isProgressVisible = true;
+                    progressPath.style.opacity = '1';
+                    progressLabel.classList.remove('hide-up');
+                    progressLabel.classList.add('show');
+                    iconWrapper.classList.add('show-progress');
+                }
+                
+                currentProgress = progress;
+                
+                // 重置隐藏定时器：3秒后隐藏进度标签
+                scrollTimeout = setTimeout(() => {
+                    hideProgressLabel();
+                }, HIDE_DELAY);
             }
-            
-            currentProgress = progress;
-            
-            // 重置隐藏定时器
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                hideButton();
-            }, HIDE_DELAY);
+            // 如果不在滚动，不改变进度标签的状态（保持当前状态）
         } else {
-            // 隐藏按钮
+            // 隐藏整个按钮
             backToTopBtn.classList.add('hide');
             if (isProgressVisible) {
                 isProgressVisible = false;
                 progressPath.style.opacity = '0';
-                progressLabel.classList.remove('show');
+                progressLabel.classList.remove('show', 'hide-up');
                 iconWrapper.classList.remove('show-progress');
             }
             // 清除隐藏定时器
@@ -250,15 +274,16 @@ function backToTop() {
         }
     }
     
-    function hideButton() {
-        // 隐藏整个按钮
-        backToTopBtn.classList.add('hide');
-        // 同时隐藏进度显示
+    function hideProgressLabel() {
+        // 隐藏进度标签（从上往下浮出）
         if (isProgressVisible) {
             isProgressVisible = false;
-            progressPath.style.opacity = '0';
             progressLabel.classList.remove('show');
+            progressLabel.classList.add('hide-up');
+            // 图标恢复到中间位置
             iconWrapper.classList.remove('show-progress');
+            // 进度条保持显示（不隐藏）
+            // progressPath.style.opacity = '0'; // 不隐藏进度条
         }
     }
     
