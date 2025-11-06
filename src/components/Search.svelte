@@ -12,6 +12,8 @@ let result: SearchResult[] = [];
 let isSearching = false;
 let pagefindLoaded = false;
 let initialized = false;
+let manuallyClosedDesktop = false; // 用户是否手动关闭了桌面端搜索结果
+let manuallyClosedMobile = false; // 用户是否手动关闭了移动端搜索结果
 
 const fakeResult: SearchResult[] = [
 	{
@@ -33,16 +35,35 @@ const fakeResult: SearchResult[] = [
 
 const togglePanel = () => {
 	const panel = document.getElementById("search-panel");
-	panel?.classList.toggle("float-panel-closed");
+	if (!panel) return;
+	
+	const isClosed = panel.classList.contains("float-panel-closed");
+	panel.classList.toggle("float-panel-closed");
+	
+	// 如果用户手动关闭了面板，记录状态
+	if (!isClosed) {
+		// 面板被关闭了
+		manuallyClosedMobile = true;
+	}
 };
 
 const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 	const panel = document.getElementById("search-panel");
 	if (!panel || !isDesktop) return;
 
+	const wasClosed = panel.classList.contains("float-panel-closed");
+
 	if (show) {
+		// 如果用户手动关闭过，则不显示
+		if (manuallyClosedDesktop) {
+			return;
+		}
 		panel.classList.remove("float-panel-closed");
 	} else {
+		// 如果面板之前是打开的，且有关键词，说明是手动关闭
+		if (!wasClosed && (keywordDesktop || keywordMobile)) {
+			manuallyClosedDesktop = true;
+		}
 		panel.classList.add("float-panel-closed");
 	}
 };
@@ -51,10 +72,21 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 	if (!keyword) {
 		setPanelVisibility(false, isDesktop);
 		result = [];
+		// 清空输入时，重置手动关闭标志
+		if (isDesktop) {
+			manuallyClosedDesktop = false;
+		} else {
+			manuallyClosedMobile = false;
+		}
 		return;
 	}
 
 	if (!initialized) {
+		return;
+	}
+
+	// 如果用户手动关闭了搜索结果，则不执行搜索显示
+	if ((isDesktop && manuallyClosedDesktop) || (!isDesktop && manuallyClosedMobile)) {
 		return;
 	}
 
@@ -98,6 +130,38 @@ onMount(() => {
 		if (keywordMobile) search(keywordMobile, false);
 	};
 
+	// 监听点击外部区域关闭搜索面板的事件
+	// Layout.astro 中的 setClickOutsideToClose 会关闭面板
+	// 我们需要检测这种情况并标记为手动关闭
+	const panel = document.getElementById("search-panel");
+	if (panel) {
+		// 监听面板class的变化，检测是否是外部点击导致关闭
+		const observer = new MutationObserver(() => {
+			// 如果面板被关闭，且有关键词，且不是通过搜索框焦点触发的
+			if (panel.classList.contains("float-panel-closed") && 
+			    (keywordDesktop || keywordMobile)) {
+				const activeElement = document.activeElement;
+				const isClickingSearchBar = activeElement?.closest("#search-bar") !== null;
+				const isClickingSearchPanel = activeElement?.closest("#search-panel") !== null;
+				const isClickingSearchSwitch = activeElement?.id === "search-switch";
+				
+				// 如果不是点击搜索相关元素，说明是手动关闭
+				if (!isClickingSearchBar && !isClickingSearchPanel && !isClickingSearchSwitch) {
+					if (window.innerWidth >= 1024) {
+						manuallyClosedDesktop = true;
+					} else {
+						manuallyClosedMobile = true;
+					}
+				}
+			}
+		});
+		
+		observer.observe(panel, {
+			attributes: true,
+			attributeFilter: ["class"]
+		});
+	}
+
 	if (import.meta.env.DEV) {
 		console.log(
 			"Pagefind is not available in development mode. Using mock data.",
@@ -125,13 +189,13 @@ onMount(() => {
 	}
 });
 
-$: if (initialized && keywordDesktop) {
+$: if (initialized && keywordDesktop && !manuallyClosedDesktop) {
 	(async () => {
 		await search(keywordDesktop, true);
 	})();
 }
 
-$: if (initialized && keywordMobile) {
+$: if (initialized && keywordMobile && !manuallyClosedMobile) {
 	(async () => {
 		await search(keywordMobile, false);
 	})();
@@ -144,14 +208,24 @@ $: if (initialized && keywordMobile) {
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
 ">
     <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-    <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
+    <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} on:focus={() => {
+		manuallyClosedDesktop = false;
+		search(keywordDesktop, true);
+	}}
            class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
     >
 </div>
 
 <!-- toggle btn for phone/tablet view -->
-<button on:click={togglePanel} aria-label="Search Panel" id="search-switch"
+<button on:click={() => {
+	// 如果面板是关闭的，打开时重置手动关闭标志
+	const panel = document.getElementById("search-panel");
+	if (panel && panel.classList.contains("float-panel-closed")) {
+		manuallyClosedMobile = false;
+	}
+	togglePanel();
+}} aria-label="Search Panel" id="search-switch"
         class="btn-plain scale-animation lg:!hidden rounded-lg w-11 h-11 active:scale-90">
     <Icon icon="material-symbols:search" class="text-[1.25rem]"></Icon>
 </button>
@@ -166,7 +240,10 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
   ">
         <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-        <input placeholder="Search" bind:value={keywordMobile}
+        <input placeholder="Search" bind:value={keywordMobile} on:focus={() => {
+		manuallyClosedMobile = false;
+		search(keywordMobile, false);
+	}}
                class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
                focus:w-60 text-black/50 dark:text-white/50"
         >

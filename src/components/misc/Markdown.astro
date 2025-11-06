@@ -14,6 +14,37 @@ const className = Astro.props.class;
 </div>
 
 <script>
+// 处理文章内容中的链接，使其在新标签页中打开
+function processLinks() {
+    const markdownContainer = document.querySelector('.custom-md');
+    if (!markdownContainer) return;
+    
+    const links = markdownContainer.querySelectorAll('a:not(.anchor):not(.no-styling)');
+    links.forEach((link) => {
+        // 排除锚点链接（以 # 开头的链接）
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('#')) {
+            // 如果链接还没有 target 属性，则设置为新标签页打开
+            if (!link.hasAttribute('target')) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            }
+        }
+    });
+}
+
+// 页面加载后处理链接
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', processLinks);
+} else {
+    processLinks();
+}
+
+// 监听 swup 页面切换事件（如果使用了 swup）
+if (typeof window !== 'undefined' && window.swup) {
+    window.swup.hooks.on('content:replace', processLinks);
+}
+
 document.addEventListener("click", function (e: MouseEvent) {
     const target = e.target as Element | null;
     if (target && target.classList.contains("copy-btn")) {
