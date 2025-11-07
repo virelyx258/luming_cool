@@ -29,13 +29,6 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		link: "https://dusays.com/",
 	},
 	{
-		title: "极客死亡计划",
-		img:
-			"https://www.haoyu233.com/wp-content/uploads/2025/06/f462b8524cee1ea5111dcb74092b9ab2.gif",
-		desc: "向内进行深入思考，向外输出洞见和看法。",
-		link: "https://geedea.pro",
-	},
-	{
 		title: "白熊阿丸的小屋",
 		img:
 			"https://cravatar.cn/avatar/21531185e8296f70da566b68d3fc9785?s=400&d=mp",
@@ -88,7 +81,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		title: "老陈爱刷机",
 		img: "http://blog.chenyuxia.com/wp-content/uploads/2025/01/cropped-dc57b0460b95b3e21479f93643b556e9.jpg",
 		desc: "由老陈爱刷机搭建的网站，更新些好玩的东西。",
-		link: "https://blog.chenyuxia.com/",
+		link: "https://tc.chenyuxia.com/",
 	},
 	{
 		title: "小改学习志",

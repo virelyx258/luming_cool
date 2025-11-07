@@ -66,7 +66,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=500&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=512&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "RiseForever",
 	bio: "高一学生，博主，开发者。",
 	links: [
