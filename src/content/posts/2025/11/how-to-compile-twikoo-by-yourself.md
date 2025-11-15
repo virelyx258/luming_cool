@@ -1,7 +1,7 @@
 ---
-title: 记一次自行编译Twikoo
+title: 解决 Twikoo 在 Fuwari 主题下的页面乱滚问题
 published: 2025-11-06 18:38:00
-description: 'Twikoo官方版本在Astro的Fuwari主题下会有点击按钮自动滚动到页面顶部的问题，自己编译可以解决这个问题。'
+description: '题同“如何自己编译 Twikoo”'
 image: ''
 tags: ['开发']
 category: '科技'
