@@ -90,12 +90,6 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		link: "https://tc.chenyuxia.com/",
 	},
 	{
-		title: "小改学习志",
-		img: "https://www.haoyu233.com/wp-content/uploads/2025/11/b7a92341f346e9c6c3bbfabca684ce19.webp",
-		desc: "Make It Possible.",
-		link: "https://www.haoyu233.com/",
-	},
-	{
 		title: "Echo",
 		img: "https://www.liveout.cn/wp-content/uploads/2024/09/1.jpg",
 		desc: "漂泊于互联网中的小窝",
