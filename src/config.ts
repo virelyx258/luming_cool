@@ -107,6 +107,6 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 export const commentConfig: CommentConfig = {
   twikoo: {
-    envId: 'https://twikoo-new.luming.cool/',
+    envId: 'https://twikoo.luming.cool/',
   },
 }
