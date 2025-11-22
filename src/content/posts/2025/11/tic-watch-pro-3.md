@@ -5,7 +5,7 @@ description: '这块手表拥有轻薄、智能、伪装性好的特点，但它
 image: './tic-watch-pro-3.assets/cover.png'
 tags: ['TicWatch','手表']
 category: '科技'
-draft: true 
+draft: false 
 lang: ''
 ---
 
