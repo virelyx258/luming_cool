@@ -17,6 +17,12 @@ import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
+		title: '小改学习志',
+		img: 'https://cn.cravatar.com/avatar/14e584196d31262ea144ab4d75d4c083?s=550&r=g',
+		desc: '尘埃尚未落定，一切皆有可能。',
+		link: 'https://www.haoyu233.com/',
+	},
+	{
 		title: '岚天小窝',
 		img: 'https://gravatar.ltya.top/avatar/5af06b461740fb2bd7467b8561399703?s=500',
 		desc: '一只鸽子住在这里~',
