@@ -18,7 +18,7 @@ import LinkCard from "./LinkCard.vue";
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
 		title: '蘇 SU',
-		img: 'https://suus.me/avatar.webp',
+		img: 'https://weavatar.com/avatar/5b986063afb0ee2d78abd40defe3aec607d812b372093008646e137f61023869?sha256=1&d=mp&s=500',
 		desc: '在数字的海洋中，寻找属于自己的星辰。',
 		link: 'https://suus.me',
 	},
