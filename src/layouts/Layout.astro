@@ -462,6 +462,11 @@ function init() {
 	if (!siteConfig.banner.enable) {
 		document.body.classList.add('banner-ready');
 	}
+	
+	// Check navbar visibility on initial load
+	setTimeout(() => {
+		scrollFunction();
+	}, 100);
 }
 
 /* Load settings when entering the site */
@@ -538,6 +543,12 @@ const setup = () => {
             if (toc) {
                 toc.classList.remove('toc-not-ready')
             }
+            
+            // Check navbar visibility after page transition
+            const navbar = document.getElementById('navbar-wrapper');
+            if (navbar) {
+                scrollFunction(); // Call scroll function to update navbar visibility
+            }
         }, 200)
 	});
 }
@@ -570,7 +581,6 @@ function scrollFunction() {
 		}
 	}
 
-	if (!bannerEnabled) return
 	if (navbar) {
 		const NAVBAR_HEIGHT = 72
 		const MAIN_PANEL_EXCESS_HEIGHT = MAIN_PANEL_OVERLAPS_BANNER_HEIGHT * 16			// The height the main panel overlaps the banner
