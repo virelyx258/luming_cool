@@ -6,7 +6,7 @@
 
 # 联系📫
 
-**自托管聊天平台**：[https://chat.luming.cool](https://chat.luming.cool)，你可以通过这个平台与我闲聊唠嗑；
+**自托管聊天平台**：[https://chat.luming.cool](https://chat.luming.cool)，你可以通过这个平台**直接**与我闲聊唠嗑；
 
 **电子邮箱**：hi[at]riseforever.cn（请手动将`[at]`替换为`@`）。
 
@@ -22,7 +22,7 @@
 
 目前进行中的项目是蓝屏工具箱 5.0（重构中），其余作品可以前往[这里](/posts/2025/11/open-source-sorts-of-software/)查看。
 
-**钢琴**：于 11 岁时考完中国歌剧舞剧院钢琴业余 10 级，家里有一台钢琴，现在偶尔会坐下来弹两曲。
+**钢琴**：已考完中国歌剧舞剧院钢琴业余 10 级，家里有一架钢琴，现在偶尔会坐下来弹两曲。
 
 # 大事记🗓️
 
@@ -39,6 +39,10 @@
 | 2025-07-09 | 博客域名更换至 `virelyx.com`，改用国内服务器，速度显著提升   |
 | 2025-10-05 | 博客域名更换至 `luming.cool`，系统变更为 `Astro`，托管于 `Vercel` |
 | ---        | 未完待续                                                     |
+
+# 版权✍
+
+如果没有特殊说明，本站文章皆为原创，基于 [CC-BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans) 协议公开。转载请注明原文链接。[协议](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans)原则上不允许对本站文章的再混合、转换、或者二次创作。但如果实在需要二创，请电邮我让我知情，谢谢。
 
 # 感谢❤
 
