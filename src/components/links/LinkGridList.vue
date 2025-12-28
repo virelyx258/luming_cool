@@ -17,6 +17,12 @@ import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
+		title: '重生云',
+		img: 'https://cn.cravatar.com/avatar/a10109bb266cc4eebc8d7992a4977a0c?s=200',
+		desc: '明月装饰了你的窗，你装饰了别人的梦。',
+		link: 'https://xiaochopin.github.io/',
+	},
+	{
 		title: '蘇 SU',
 		img: 'https://weavatar.com/avatar/5b986063afb0ee2d78abd40defe3aec607d812b372093008646e137f61023869?sha256=1&d=mp&s=500',
 		desc: '在数字的海洋中，寻找属于自己的星辰。',
