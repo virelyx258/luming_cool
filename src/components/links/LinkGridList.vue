@@ -17,6 +17,12 @@ import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
+		title: '伏枥之间',
+		img: 'https://leehenry.top/friends/my-avatar-portrait.jpg',
+		desc: '莫听穿林打叶声，何妨吟啸且徐行。',
+		link: 'https://www.leehenry.top',
+	},
+	{
 		title: '重生云',
 		img: 'https://cn.cravatar.com/avatar/a10109bb266cc4eebc8d7992a4977a0c?s=200',
 		desc: '明月装饰了你的窗，你装饰了别人的梦。',
