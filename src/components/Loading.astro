@@ -2,41 +2,48 @@
 ---
 
 <div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--page-bg)]" style="display: none;">
-	<div class="loading-spinner"></div>
+	<div class="loading-bar">
+		<div class="loading-progress"></div>
+	</div>
 </div>
 
 <style>
-	#page-loading {
-		--spinner-size: 40px;
-		--spinner-border-width: 3px;
-		/* 浅色模式直接使用主题色 */
-		--spinner-color: var(--primary);
-		--spinner-bg-color: oklch(0.92 0.01 0);
+	/* 加载条容器 - 居中显示的灰色背景条 */
+	.loading-bar {
+		width: 128px;
+		height: 4px;
+		background-color: #e5e7eb;
+		border-radius: 9999px;
+		overflow: hidden;
 	}
 
-	.loading-spinner {
-		width: var(--spinner-size);
-		height: var(--spinner-size);
-		border: var(--spinner-border-width) solid var(--spinner-bg-color);
-		border-top-color: var(--spinner-color);
-		border-radius: 50%;
-		animation: spin 0.8s linear infinite;
+	/* 暗色模式下的加载条背景 */
+	:root.dark .loading-bar {
+		background-color: #374151;
 	}
 
-	@keyframes spin {
+	/* 进度条动画 */
+	@keyframes loading-progress {
 		0% {
-			transform: rotate(0deg);
+			transform: translate(-100%);
 		}
-		100% {
-			transform: rotate(360deg);
+		to {
+			transform: translate(400%);
 		}
 	}
 
-	/* 暗色模式适配 */
-	:root.dark #page-loading {
-		--spinner-bg-color: oklch(0.20 0.014 0);
-		/* 深色模式下使用更亮的旋转色以确保可见性 */
-		--spinner-color: oklch(0.85 0.14 var(--hue));
+	/* 进度条 - 移动的彩色条 */
+	.loading-progress {
+		height: 100%;
+		width: 32px;
+		background-color: oklch(0.70 0.14 var(--hue));
+		border-radius: 9999px;
+		animation: loading-progress 1.5s ease-in-out infinite;
+	}
+
+	/* 暗色模式下的进度条颜色 */
+	:root.dark .loading-progress {
+		background-color: oklch(0.85 0.14 var(--hue));
 	}
 </style>
 

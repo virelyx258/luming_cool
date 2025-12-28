@@ -1,0 +1,64 @@
+/* 图片懒加载占位动画 CSS */
+
+/* 加载条容器 - 居中显示的灰色背景条 */
+.loading-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 128px;  /* w-32 */
+  height: 4px;   /* h-1 */
+  background-color: #e5e7eb;  /* bg-gray-200 */
+  z-index: 10;
+  border-radius: 9999px;  /* rounded-full */
+  overflow: hidden;
+  transition: opacity 0.5s ease-out;
+}
+
+/* 暗色模式下的加载条背景 */
+.dark .loading-bar {
+  background-color: #374151;  /* dark:bg-gray-700 */
+}
+
+/* 进度条动画 */
+@keyframes loading-progress {
+  0% {
+    transform: translate(-100%);
+  }
+  to {
+    transform: translate(400%);
+  }
+}
+
+/* 进度条 - 移动的彩色条 */
+.loading-progress {
+  height: 100%;
+  width: 32px;  /* w-8 */
+  background-color: oklch(0.70 0.14 var(--theme-hue, 361));
+  border-radius: 9999px;  /* rounded-full */
+  animation: loading-progress 1.5s ease-in-out infinite;
+}
+
+/* 图片加载完成后的效果 */
+.image-content {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.image-content.loaded {
+  opacity: 1;
+}
+
+/* 使用示例 HTML:
+<div class="relative w-full h-full rounded-xl overflow-hidden">
+  <div class="loading-bar">
+    <div class="loading-progress"></div>
+  </div>
+  <img 
+    src="your-image.jpg" 
+    alt="Description"
+    class="w-full h-full object-cover image-content"
+    onload="this.classList.add('loaded'); this.parentElement.querySelector('.loading-bar').style.opacity='0';"
+  />
+</div>
+*/
