@@ -1,6 +1,6 @@
 ---
 title: 新项目：随机转盘
-published: 2026-01-02 16:15:00
+published: 2026-01-02 17:10:00
 description: '基于 HTML + CSS + JavaScript，没错，纯前端。'
 image: ''
 tags: ['设计','网页']
