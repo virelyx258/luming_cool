@@ -28,7 +28,7 @@ import vue from "@astrojs/vue";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://blog.luming.cool/",
+    site: "https://luming.cool/",
     base: "",
     trailingSlash: "always",
     integrations: [tailwind({
