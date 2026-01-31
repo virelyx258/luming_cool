@@ -2,11 +2,11 @@
 
 我是 RiseForever，一名 15 岁的高一学生。
 
-这里是我的空间。欢迎来访！ヾ(≧▽≦*)o
+这里是路明笔记，我会在这里发表有关科技与生活的文章。
+
+欢迎来访！ヾ(≧▽≦*)o
 
 # 联系📫
-
-**自托管聊天平台**：[https://chat.luming.cool](https://chat.luming.cool)，你可以通过这个平台**直接**与我闲聊唠嗑；
 
 **电子邮箱**：hi[at]riseforever.cn（请手动将`[at]`替换为`@`）。
 
@@ -21,6 +21,8 @@
 **编程**：易语言、JavaScript、HTML、Python等，或多或少地都有所了解。
 
 目前进行中的项目是蓝屏工具箱 5.0（重构中），其余作品可以前往[这里](/posts/2025/11/open-source-sorts-of-software/)查看。
+
+**刷机**：对手机、电脑和轻智能可穿戴设备（RTOS）的固件进行修改。
 
 **钢琴**：已考完中国歌剧舞剧院钢琴业余 10 级，家里有一架钢琴，现在偶尔会坐下来弹两曲。
 
@@ -46,8 +48,16 @@
 
 # 感谢❤
 
+[腾讯云](https://cloud.tencent.com) 提供域名注册服务。
+
+[白山云](https://www.baishan.com) 提供全站加速服务。
+
+[Vercel](https://vercel.com) 为本站提供托管服务。
+
 **[Astro](https://astro.build)** 为本站提供建站系统。
 
 **[Fuwari](https://github.com/saicaca/fuwari)** 为本站提供主题。
+
+[Twikoo](https://twikoo.js.org) 为本站提供评论系统。
 
 **[Pinpe](https://pinpe.top)** 为本站提供友链随机卡片、侧栏状态信息相关代码。
