@@ -17,6 +17,12 @@ import LinkCard from "./LinkCard.vue";
 
 const links: { title: string; link: string; desc: string; img: string }[] = [
 	{
+		title: 'FVLI',
+		img: 'https://i.fvli.top/pigen.png',
+		desc: '记录我的经验，记录我的生活。',
+		link: 'https://b.fvli.top',
+	},
+	{
 		title: '伏枥之间',
 		img: 'https://leehenry.top/friends/my-avatar-portrait.jpg',
 		desc: '莫听穿林打叶声，何妨吟啸且徐行。',
