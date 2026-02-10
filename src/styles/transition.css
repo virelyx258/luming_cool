@@ -31,6 +31,12 @@ body:not(.banner-ready) .onload-animation {
     opacity: 0;
 }
 
+/* Loading 显示时阻止默认动画，由 Loading 组件控制 */
+body.loading-shown .onload-animation {
+    animation: none !important;
+    opacity: 0;
+}
+
 body.banner-ready .onload-animation {
     animation: 300ms fade-in-up;
     animation-fill-mode: forwards;

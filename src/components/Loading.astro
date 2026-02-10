@@ -77,6 +77,7 @@
 		const loadingElement = document.getElementById('page-loading');
 		if (loadingElement && !loadingShown) {
 			loadingElement.style.display = 'flex';
+			document.body.classList.add('loading-shown');
 			loadingShown = true;
 		}
 	}
@@ -84,8 +85,19 @@
 	function hideLoading() {
 		const loadingElement = document.getElementById('page-loading');
 		if (loadingElement && loadingElement.parentNode) {
-			loadingElement.parentNode.removeChild(loadingElement);
+			loadingElement.style.transition = 'opacity 200ms ease-out';
+			loadingElement.style.opacity = '0';
+			setTimeout(() => {
+				if (loadingElement.parentNode) {
+					loadingElement.parentNode.removeChild(loadingElement);
+				}
+			}, 200);
 		}
+	}
+
+	// 重置并重新播放开场动画
+	function replayOnloadAnimations() {
+		document.body.classList.remove('loading-shown');
 	}
 
 	function checkAndShowLoading() {
@@ -199,13 +211,12 @@
 	function handlePageReady() {
 		pageReady = true;
 		
-		// 如果已经显示了Loading，等待一小段时间确保页面渲染完成
 		if (loadingShown) {
+			hideLoading();
 			setTimeout(() => {
-				hideLoading();
-			}, 100);
+				replayOnloadAnimations();
+			}, 200);
 		} else {
-			// 页面快速加载完成，直接隐藏，不显示Loading
 			hideLoading();
 		}
 	}
