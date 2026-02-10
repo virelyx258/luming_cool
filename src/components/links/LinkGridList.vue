@@ -47,10 +47,10 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		link: 'https://www.haoyu233.com/',
 	},
 	{
-		title: '岚天小窝',
-		img: 'https://gravatar.ltya.top/avatar/5af06b461740fb2bd7467b8561399703?s=500',
-		desc: '一只鸽子住在这里~',
-		link: 'https://blog.ltya.top/',
+		title: '小岚的杂物间',
+		img: 'https://avatar.guirlan.de/avatar/172530293dcfb25d871a72ccb39b21c2/256',
+		desc: '这里储存着各种稀奇古怪事物~',
+		link: 'https://www.guirlan.de/',
 	},
 	{
 		title: 'MC_Kero blog',
