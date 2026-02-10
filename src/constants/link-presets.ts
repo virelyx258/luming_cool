@@ -26,7 +26,7 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
   	},
 	[LinkPreset.Travellings]: {
      name: i18n(I18nKey.travellings),
-     url: 'https://travellings.cn/plain.html',
+     url: 'https://www.travellings.cn/plain.html',
 	 icon: "material-symbols:train-outline-rounded",
 	 external: true,
  	},
