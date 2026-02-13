@@ -1,5 +1,5 @@
 ---
-title: 新发现！REDMI Watch 5 eSIM 新固件恢复快应用安装详细教程
+title: REDMI Watch 5 eSIM 新固件恢复快应用安装详细教程
 published: 2026-02-12 20:00:00
 description: '我做了个实验，发现限制快应用数量的并非物理分区大小，而是系统底层逻辑。'
 image: ''
