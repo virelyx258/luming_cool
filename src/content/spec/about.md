@@ -18,7 +18,9 @@
 
 # 兴趣💻
 
-**编程**：易语言、JavaScript、HTML、Python等，或多或少地都有所了解。
+**VibeCoding**：基于 AI，创造有价值的项目。个人工作室：[HiSeed 希籽工坊](https://www.hiseed.top)
+
+**传统编程**：易语言、JavaScript、HTML、Python等，或多或少地都有所了解。
 
 目前进行中的项目是蓝屏工具箱 5.0（重构中），其余作品可以前往[这里](/posts/2025/11/open-source-sorts-of-software/)查看。
 
