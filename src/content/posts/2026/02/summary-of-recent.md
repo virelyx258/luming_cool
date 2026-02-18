@@ -1,6 +1,6 @@
 ---
 title: 杂记：分班近况、手表折腾、项目等
-published: 2026-02-07 20:20:20
+published: 2026-02-19 01:00:00
 description: ''
 image: ''
 tags: []
