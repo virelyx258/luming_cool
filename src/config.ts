@@ -13,12 +13,12 @@ export const siteConfig: SiteConfig = {
 	subtitle: "Luming Notes",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
-		hue: 45, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345, 栀黄: 45
+		hue: 185, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345, 栀黄: 45
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {
 		enable: true,
-		src: "/banner/banner.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "/banner/banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -66,7 +66,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"https://cn.cravatar.com/avatar/302380667bdaf4e1390800e62494d4af?s=480&r=X", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"/avatar/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "RiseForever",
 	bio: "高一学生，博主，开发者。",
 	links: [
