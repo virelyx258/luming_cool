@@ -1,6 +1,6 @@
 ---
 title: TicWatch Pro3：腕上智能小废物
-published: 2025-11-22 23:00:00
+published: 2025-11-22 23:10:00
 description: '这块手表拥有轻薄、智能、伪装性好的特点，但它已经被时代抛弃。'
 image: './tic-watch-pro-3.assets/cover.png'
 tags: ['TicWatch','手表']
