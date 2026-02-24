@@ -19,15 +19,6 @@ import type { Favicon } from "../types/config";
 import { pathsEqual, url } from "../utils/url-utils";
 import "katex/dist/katex.css";
 import "@/styles/twikoo.css";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import "@/styles/MiSans.css";
-import "@/styles/YaHeiConsolasHybrid.css";
->>>>>>> parent of 13434e2 (删除 MiSans 相关引用)
-=======
-import "@/styles/YaHeiConsolasHybrid.css";
->>>>>>> parent of 0196845 (删除 YaHei Consolas 相关引用)
 import panguUrl from "../components/pangu.js?url";
 
 interface Props {
@@ -111,6 +102,10 @@ const bannerOffset =
 
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+
+		<link rel="stylesheet" href="https://cdn.xrbk.cn/fonts/MiSans-Light/result.css">
+		<link rel="stylesheet" href="https://cdn.xrbk.cn/fonts/MiSans-Regular/result.css">
+		<link rel="stylesheet" href="https://cdn.xrbk.cn/fonts/MiSans-Semibold/result.css">
 		
 		{/* Standard favicon.ico - most compatible format for browsers and search engines */}
 		{/* Browsers will automatically fallback if this file doesn't exist */}
