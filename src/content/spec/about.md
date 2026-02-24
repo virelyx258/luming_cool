@@ -52,7 +52,7 @@
 
 [腾讯云](https://cloud.tencent.com) 提供域名注册服务。
 
-[火毅盾5201314](https://www.hydun.com) 提供全站加速服务。
+[火毅盾](https://www.hydun.com) 提供全站加速服务。
 
 [Vercel](https://vercel.com) 为本站提供托管服务。
 
