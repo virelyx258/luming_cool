@@ -117,7 +117,7 @@ const links: { title: string; link: string; desc: string; img: string }[] = [
 		title: "老陈爱刷机",
 		img: "http://blog.chenyuxia.com/wp-content/uploads/2025/01/cropped-dc57b0460b95b3e21479f93643b556e9.jpg",
 		desc: "由老陈爱刷机搭建的网站，更新些好玩的东西。",
-		link: "https://tc.chenyuxia.com/",
+		link: "https://blog.chenyuxia.com/",
 	},
 	{
 		title: "Echo",
