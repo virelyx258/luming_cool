@@ -464,7 +464,32 @@ function init() {
 	// Check navbar visibility on initial load
 	setTimeout(() => {
 		scrollFunction();
+		syncSidebarToc();
 	}, 100);
+}
+
+function syncSidebarToc() {
+	const tocEl = document.getElementById('toc');
+	const tocInner = document.getElementById('toc-inner');
+	const tocSidebar = document.getElementById('toc-sidebar');
+	const tocWrapper = document.getElementById('toc-wrapper');
+	const sidebarSticky = document.getElementById('sidebar-sticky');
+	if (!tocInner || !tocSidebar) return;
+
+	const hasTocLinks = tocEl && tocEl.querySelector('a[href^="#"]');
+
+	if (hasTocLinks) {
+		const links = tocEl.querySelectorAll('table-of-contents > a[href^="#"]');
+		tocInner.innerHTML = Array.from(links).map(a => a.outerHTML).join('');
+		tocSidebar.classList.remove('hidden');
+		if (tocWrapper) tocWrapper.style.display = 'none';
+		if (sidebarSticky) sidebarSticky.classList.add('hidden');
+	} else {
+		tocInner.innerHTML = '';
+		tocSidebar.classList.add('hidden');
+		if (tocWrapper) tocWrapper.style.display = '';
+		if (sidebarSticky) sidebarSticky.classList.remove('hidden');
+	}
 }
 
 /* Load settings when entering the site */
@@ -500,7 +525,10 @@ const setup = () => {
 			navbar.classList.add('navbar-hidden')
 		}
 	})
-	window.swup.hooks.on('content:replace', initCustomScrollbar)
+	window.swup.hooks.on('content:replace', () => {
+		initCustomScrollbar();
+		syncSidebarToc();
+	})
 	window.swup.hooks.on('visit:start', (visit: {to: {url: string}}) => {
 		// change banner height immediately when a link is clicked
 		const bodyElement = document.querySelector('body')
