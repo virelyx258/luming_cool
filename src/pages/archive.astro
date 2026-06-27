@@ -1,14 +1,45 @@
 ---
 import ArchivePanel from "@components/ArchivePanel.svelte";
+import WritingHeatmap from "@components/WritingHeatmap.svelte";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPostsList } from "../utils/content-utils";
 
 const sortedPostsList = await getSortedPostsList();
+
+function countWords(body: string): number {
+    const clean = body
+        .replace(/```[\s\S]*?```/g, "")
+        .replace(/`[^`]+`/g, "")
+        .replace(/!\[.*?\]\(.*?\)/g, "")
+        .replace(/\[([^\]]*)\]\(.*?\)/g, "$1")
+        .replace(/#{1,6}\s/g, "")
+        .replace(/[*_~>+|-]/g, "")
+        .replace(/\[!NOTE\]|\[!TIP\]|\[!IMPORTANT\]|\[!WARNING\]|\[!CAUTION\]/g, "")
+        .replace(/\{[^}]*\}/g, "")
+        .replace(/import\s+.*from\s+['"].*['"]/g, "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/https?:\/\/\S+/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    const chineseChars = (clean.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g) || []).length;
+    const englishWords = clean.replace(/[\u4e00-\u9fff\u3400-\u4dbf]/g, " ")
+        .split(/\s+/)
+        .filter(w => w.length > 0).length;
+
+    return chineseChars + englishWords;
+}
+
+const postsWithWords = sortedPostsList.map(post => ({
+    date: post.data.published.toISOString().split('T')[0],
+    words: countWords(post.body || ""),
+}));
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>
+    <WritingHeatmap postsData={postsWithWords} client:only="svelte"></WritingHeatmap>
     <ArchivePanel sortedPosts={sortedPostsList} client:only="svelte"></ArchivePanel>
 </MainGridLayout>
 
